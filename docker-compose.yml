@@ -1,0 +1,17 @@
+services:
+  cinema_mysql:
+    image: mysql:8.0
+    container_name: cinema_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: cinema_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - cinema_mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --default-authentication-plugin=mysql_native_password
+
+volumes:
+  cinema_mysql_data:
